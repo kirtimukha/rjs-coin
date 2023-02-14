@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.css";
-import { darkTheme, lightTheme } from "./../theme";
+
 import { ThemeProvider } from "styled-components";
-import { isDarkAtom } from "./../atom";
+import { isDarkAtom } from "./atom";
 import { useRecoilValue } from "recoil";
+import { darkTheme, lightTheme } from "./theme";
 
 const App = () => {
 	const isDark = useRecoilValue(isDarkAtom);
