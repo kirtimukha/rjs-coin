@@ -1,9 +1,13 @@
 import React from "react";
-
+import styled from "styled-components";
+const Title = styled.h1`
+	color: ${(prop) => prop.theme.accentColor};
+	font-size: 2em;
+`
 const Coins = () => {
 	return (
 
-			<h1>coins</h1>
+			<Title>coins</Title>
 
 	);
 };
