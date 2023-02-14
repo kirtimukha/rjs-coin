@@ -2,9 +2,9 @@ import React from "react";
 
 const Coin = () => {
 	return (
-		<>
+
 			<h1>coin</h1>
-		</>
+
 	);
 };
 
