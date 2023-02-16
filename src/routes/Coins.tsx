@@ -108,7 +108,8 @@ const Coins = () => {
 	return (
 		<Container>
 			<Header><Title>coins</Title></Header>
-			{ loading ? <Loader>Loading...</Loader> : (
+			{ loading ? <Loader>Loading...</Loader> :
+				(
 				<CoinList >
 					{coins.map ( coin =>
 						<Coin key={coin.id}>
