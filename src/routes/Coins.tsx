@@ -112,7 +112,11 @@ const Coins = () => {
 				<CoinList >
 					{coins.map ( coin =>
 						<Coin key={coin.id}>
-							<Link to={`/${coin.id}`}>
+{/*							<Link to={ `/${coin.id}`}*/}
+							<Link
+								to = {{pathname: `/${coin.id}`}}
+								state = {{name : coin.name}} // 이렇게 하면 유저는 전환시에 아무것도 보지 않을 수 있다.
+							>
 								<CoinWrapper>
 								<Icon src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} alt={coin.name} />
 								{coin.name}
