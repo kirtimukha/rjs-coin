@@ -42,7 +42,25 @@ interface CoinInterface {
 	is_active: boolean,
 	type: string
 }
-
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  //background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props=>props.theme.bgColor};    
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
 interface IInfoData {
 	//속성 뽑기 : Object.keys(temp1).join()
 	//타입 뽑기 : Object.values(temp1).map(v=>typeof v).join()
@@ -104,12 +122,8 @@ const Coin = () => {
 	const [ loading, setLoading ] = useState(true);
 	const {coinId} = useParams<{coinId:string}>();
 	const {state} = useLocation() as ILocation;
-
-	const [info, setInfo] = useState({});//objects
-	const [priceInfo, setPriceInfo] = useState({});
-
-	//const location = useLocation();
-	//const name = location.state as LocationState;
+	const [info, setInfo] = useState<IInfoData>();//objects
+	const [priceInfo, setPriceInfo] = useState<IPriceData>();
 
 
 	// useEffect (() => {}, []);
@@ -125,11 +139,49 @@ const Coin = () => {
 				setPriceInfo(priceData);
 			}
 		)();
-	}, []);
+	}, [coinId]);
 	return (
 		<Container>
-			<Header><Title>{state ?.name || "Loading" }  </Title></Header>
-			{ loading ? <Loader>Loading...</Loader> : null }
+			<Header><Title>{state ?.name ? state.name : loading ? "Loading...": info?.name}  </Title></Header>
+			{ loading ? <Loader>Loading...</Loader> :
+				(
+					<>
+						<Overview>
+							<OverviewItem>
+								<span>Rank:</span>
+								<span>{info?.rank}</span>
+							</OverviewItem>
+							<OverviewItem>
+								<span>symbol:</span>
+								<span>{info?.symbol}</span>
+							</OverviewItem>
+
+							<OverviewItem>
+								<span>price:</span>
+								<span>{priceInfo?.quotes?.USD?.price}</span>
+							</OverviewItem>
+							<OverviewItem>
+								<span>open_source:</span>
+								<span>{info?.open_source}</span>
+							</OverviewItem>
+							<OverviewItem>
+								<span>description:</span>
+								<span>{info?.description}</span>
+							</OverviewItem>
+
+							<OverviewItem>
+								<span>Total Supply:</span>
+								<span>{priceInfo?.total_supply}</span>
+							</OverviewItem>
+
+							<OverviewItem>
+								<span>Max Supply:</span>
+								<span>{priceInfo?.max_supply}</span>
+							</OverviewItem>
+						</Overview>
+					</>
+				)
+			}
 		</Container>
 	)
 };
