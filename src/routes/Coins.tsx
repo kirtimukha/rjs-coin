@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, useSearchParams } from "react-router-dom";
 const Loader = styled.div`
 	text-align:center;
 `
@@ -94,6 +94,11 @@ interface CoinInterface {
 const Coins = () => {
 	const [coins, setCoins] = useState<CoinInterface[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [search, setSearch] = useSearchParams();
+	// const handleName = (event: any) => {
+	// 	setSearch({ name: event.target.value });
+	// };
+
 	useEffect( () => {
 		// 앱 시작시에 한번만 즉시 실행 ( function )();
 		( 	async () =>
@@ -110,23 +115,40 @@ const Coins = () => {
 			<Header><Title>coins</Title></Header>
 			{ loading ? <Loader>Loading...</Loader> :
 				(
-				<CoinList >
-					{coins.map ( coin =>
-						<Coin key={coin.id}>
-{/*							<Link to={ `/${coin.id}`}*/}
-							<Link
-								to = {{pathname: `/${coin.id}`}}
-								state = {{name : coin.name}} // 이렇게 하면 유저는 전환시에 아무것도 보지 않을 수 있다.
-							>
-								<CoinWrapper>
-								<Icon src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} alt={coin.name} />
-								{coin.name}
-								</CoinWrapper>
-								<small>{coin.symbol} 〉〉</small>
-							</Link>
-						</Coin>
-					)}
-				</CoinList>
+					<>
+						{/*<input type="text" value={name} onChange={handleName} />*/}
+						{/*<input*/}
+						{/*	type="text"*/}
+						{/*	value={search.get('name')}*/}
+						{/*	onChange={handleName}*/}
+						{/*/>*/}
+
+						{/*<ul>*/}
+						{/*	{coins.filter(byName(search.get('name'))).map((coin) => (*/}
+						{/*		<li key={coin.name}>{coin.name}</li>*/}
+						{/*	))}*/}
+						{/*</ul>*/}
+
+						<CoinList >
+							{coins.map ( coin =>
+								<Coin key={coin.id}>
+		{/*							<Link to={ `/${coin.id}`}*/}
+									<Link
+										to = {{pathname: `/${coin.id}`}}
+										state = {{name : coin.name}} // 이렇게 하면 유저는 전환시에 아무것도 보지 않을 수 있다.
+										//hash: "#the-hash"
+									>
+										<CoinWrapper>
+										<Icon src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+													alt={coin.name} />
+										{coin.name}
+										</CoinWrapper>
+										<small>{coin.symbol} 〉〉</small>
+									</Link>
+								</Coin>
+							)}
+						</CoinList>
+					</>
 				)
 			}
 		</Container>
