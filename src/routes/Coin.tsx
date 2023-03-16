@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import styled from "styled-components";
-import {Link, useLocation} from "react-router-dom";
+import {Link, Route, useLocation} from "react-router-dom";
 
 
 const Container = styled.div`
@@ -27,6 +27,7 @@ const Header = styled.div`
 	margin-bottom:15px;
 `
 
+
 interface ILocation {
 	state :{
 		name: string
@@ -46,7 +47,7 @@ const Overview = styled.div`
   display: flex;
   justify-content: space-between;
   //background-color: rgba(0, 0, 0, 0.5);
-  background-color: ${props=>props.theme.bgColor};    
+  background-color: ${props=>props.theme.bgCardColor};    
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -61,6 +62,17 @@ const OverviewItem = styled.div`
     margin-bottom: 5px;
   }
 `;
+
+const Description = styled.p`
+	margin: 20px 0;
+`
+
+interface Itag{
+	coin_counter : number;
+	ico_counter: number;
+	id: string;
+	name : string;
+}
 interface IInfoData {
 	//속성 뽑기 : Object.keys(temp1).join()
 	//타입 뽑기 : Object.values(temp1).map(v=>typeof v).join()
@@ -72,7 +84,7 @@ interface IInfoData {
 	is_active: boolean;
 	type: string;
 	logo: string;
-	//tags: Itag[];
+	tags: Itag[]; //object 이라고 나오지만 실제로는 어레이임
 	description: string;
 	message: string;
 	open_source: boolean;
@@ -137,11 +149,13 @@ const Coin = () => {
 				console.log(priceData);
 				setInfo(infoData);
 				setPriceInfo(priceData);
+				setLoading(false);
 			}
 		)();
 	}, [coinId]);
 	return (
 		<Container>
+			{/*//이전 페이지로부터 클릭한 것이 아니라, state로부터 얻어온 이름이라고 해도 열리도록 함*/}
 			<Header><Title>{state ?.name ? state.name : loading ? "Loading...": info?.name}  </Title></Header>
 			{ loading ? <Loader>Loading...</Loader> :
 				(
@@ -162,12 +176,11 @@ const Coin = () => {
 							</OverviewItem>
 							<OverviewItem>
 								<span>open_source:</span>
-								<span>{info?.open_source}</span>
+								<span>{info?.open_source? "Y": "N"}</span>
 							</OverviewItem>
-							<OverviewItem>
-								<span>description:</span>
-								<span>{info?.description}</span>
-							</OverviewItem>
+						</Overview>
+						<Description>{info?.description}</Description>
+						<Overview>
 
 							<OverviewItem>
 								<span>Total Supply:</span>
@@ -179,6 +192,15 @@ const Coin = () => {
 								<span>{priceInfo?.max_supply}</span>
 							</OverviewItem>
 						</Overview>
+
+					{/*	<Switch>
+							<Route path={`/${coinId}/price`}>
+								<Price />
+							</Route>
+						<Route path={`/${coinId}/chart`}>
+								<Chart />
+							</Route>
+						</Switch>*/}
 					</>
 				)
 			}
