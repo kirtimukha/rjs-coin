@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Coin from "./routes/Coin";
 import Coins from "./routes/Coins";
+import Nft from "./routes/Nft";
 
 const Router = () => {
 	return (
@@ -9,6 +10,7 @@ const Router = () => {
 			<Routes>
 				<Route path="/:coinId" element={<Coin />}></Route>
 				<Route path="/"  element={<Coins />}></Route>
+				<Route path="/nft"  element={<Nft />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
