@@ -5,8 +5,8 @@ const Circle = () => {
   return (
 
       <div>
-        <InCircle bgColor = "teal"/>
-        <InCircle bgColor = "tomato"/>
+        <InCircle bgColor = "teal" borderColor="white"/>
+        <InCircle bgColor = "tomato" />
       </div>
 
   );
