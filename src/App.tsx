@@ -1,7 +1,7 @@
 import React from "react";
 import { isDarkAtom } from "./atom";
 import { useRecoilValue } from "recoil";
-import { theme } from "./theme";
+import { darkTheme } from "./theme";
 import Router from "./Router";
 import {ThemeProvider} from "styled-components";
 import {createGlobalStyle} from "styled-components";
@@ -70,6 +70,7 @@ const App = () => {
 			<GlobalStlye/>
 			{/*<div className="App">new project</div>*/}
 			<Router/>
+
 		</>
 	);
 };
