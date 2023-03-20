@@ -5,6 +5,7 @@ import Coins from "./routes/Coins";
 import Nft from "./routes/Nft";
 import Circle from "./routes/Circle";
 import Forms from "./components/Forms";
+import Test from "./routes/Test";
 
 const Router = () => {
 	return (
@@ -15,6 +16,7 @@ const Router = () => {
 				<Route path="/nft"  element={<Nft />}></Route>
 				<Route path="/circle"  element={<Circle />}></Route>
 				<Route path="/forms"  element={<Forms />}></Route>
+				<Route path="/test"  element={<Test />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
